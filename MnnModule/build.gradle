@@ -1,0 +1,98 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+apply from: "${rootDir}/signature.gradle"
+
+Properties prop = new Properties();
+prop.load(project.rootProject.file('local.properties').newDataInputStream())
+
+android {
+    namespace 'com.linoel.zc.mnn'
+    compileSdk 33
+    ndkVersion "21.4.7075529"
+    defaultConfig {
+//        applicationId "com.linoel.example.mydemo"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_ARM_NEON=TRUE", "-DANDROID_PLATFORM=android-21",
+                        "-DANDROID_STL=c++_shared", "-DMNN_JNI=TRUE", "-DMNN_OPENCL=true",
+                        "-DMNN_OPENGL=true", "-DMNN_VULKAN=true ", "-DMNN_DIR=${prop['mnn.dir']}"
+            }
+        }
+        //cmake
+        ndk {
+            //'arm64-v8a' 'armeabi-v7a' 'x86_64'
+            abiFilters 'arm64-v8a'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            jniDebuggable true
+        }
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+
+    externalNativeBuild {
+        cmake {
+//            path "${prop['mnn.dir']}/CMakeLists.txt"
+            path "src/main/cpp/CMakeLists.txt"
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            assets {
+//                srcDirs += ["../../../../demo/model", "../../../../resource/model"]
+            }
+
+        }
+    }
+
+    viewBinding {
+        enabled = true
+    }
+}
+
+print("=================>${prop['mnn.dir']}")
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+
+}
+
+/*
+afterEvaluate {
+    project.tasks.each { task ->
+        println("task name: ${task.name.toString()}")
+        if (task.name.toString().contentEquals "assembleRelease") {
+            task.doLast {
+                copy {
+                    from "$buildDir/outputs/aar/MnnModule-release.aar"
+                    into "$buildDir/outputs/aar"
+                    rename {
+                        "MnnModule-api-release.aar"
+                    }
+                }
+            }
+        }
+    }
+}*/

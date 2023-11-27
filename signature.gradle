@@ -1,0 +1,51 @@
+//def keyFile = System.getenv("ANDROID_SIGNATURE")
+def keyFile = 'D:\\MyEnvironment\\Android\\android_signed_store\\002.jks'
+
+android {
+    signingConfigs {
+        debug {
+            keyAlias 'key0'
+            keyPassword 'zz178533050'
+            storePassword 'zz178533050'
+            storeFile file(keyFile)
+        }
+
+        release {
+            keyAlias 'key0'
+            keyPassword 'zz178533050'
+            storePassword 'zz178533050'
+            storeFile file(keyFile)
+        }
+    }
+
+    buildTypes {
+        /*  debug {
+              signingConfig signingConfigs.debug
+          }*/
+
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+/*
+afterEvaluate {
+    project.tasks.each { task ->
+        println("task name: ${task.name.toString()}")
+        if (task.name.toString().contentEquals "assembleRelease") {
+            task.doLast {
+                def targetFileName = "stableDiffusionDemo_V.${android.defaultConfig.versionName}.${android.defaultConfig.versionCode}.apk"
+                //重命名...
+//                delete file("$buildDir/outputs/apk/release/${targetFileName}")
+                copy {
+                    from "$buildDir/outputs/apk/release/app-release.apk"
+                    into "$buildDir/outputs/apk/release"
+                    rename {
+                        targetFileName
+                    }
+                }
+            }
+        }
+    }
+}*/
