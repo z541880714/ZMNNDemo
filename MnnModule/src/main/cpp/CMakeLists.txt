@@ -67,12 +67,16 @@ include_directories(${LIBROOT_DIR}/include/
         ${LIBROOT_DIR}/3rd_party/OpenCLHeaders/
         )
 
+include_directories(include)
+
+set(FEATURE_SO_FILE ${CMAKE_CURRENT_SOURCE_DIR}/../../../libs/${CMAKE_ANDROID_ARCH_ABI}/libcompute_feats.so)
 
 find_library(log-lib log)
 FILE(GLOB SOURCE_DIR *.cpp)
 add_library(${PROJECT_NAME} SHARED ${SOURCE_DIR})
 add_subdirectory(${MNN_DIR} MNN)
 target_link_libraries(${PROJECT_NAME}
+        ${FEATURE_SO_FILE}
         MNN
         ${log-lib}
         )

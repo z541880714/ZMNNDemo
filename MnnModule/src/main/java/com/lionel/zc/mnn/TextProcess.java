@@ -21,7 +21,6 @@ public class TextProcess implements Serializable {
         resetTensor(tensor.instance());
     }
 
-    public native static String testJni();
 
     public native static int loadVocabFile(String vocabPath);
 

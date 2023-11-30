@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.linoel.example.app.ui.theme.MyMnnDemoTheme
-import com.lionel.zc.kaldifeature.NativeLib
+import com.lionel.zc.feature.NativeLib
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch

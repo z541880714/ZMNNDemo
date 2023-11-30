@@ -18,12 +18,6 @@
 #define JNI_PREFIX(arg) Java_com_lionel_zc_mnn_TextProcess_##arg
 
 
-extern "C" {
-//静态方法 : thiz -> jclass ,  动态方法, thiz-> jobject
-JNIEXPORT jstring JNICALL
-JNI_PREFIX(testJni)(JNIEnv *env, jclass thiz) {
-    return env->NewStringUTF("hellow world!!");
-}
 
 //loadModel  String modelPath, String vocabPath
 JNIEXPORT jint JNICALL
@@ -32,6 +26,7 @@ JNI_PREFIX(loadVocabFile)(JNIEnv *env, jclass thiz, jstring vocabPath) {
     std::string s_vocabPath = JavaStringToString(env, vocabPath);
     return 0;
 }
+
 JNIEXPORT jint JNICALL
 JNI_PREFIX(nativeUpdateTensor)(JNIEnv *env, jclass clazz,
                                jlong tensorPtr, jintArray data) {

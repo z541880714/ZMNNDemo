@@ -64,7 +64,6 @@ public class MNNNetNative {
 
     protected static native int nativeTensorGetUINT8Data(long tensorPtr, byte[] dest);
 
-
     //ImageProcess
     protected static native boolean nativeConvertBitmapToTensor(Bitmap srcBitmap, long tensorPtr, int destFormat, int filterType, int wrap, float[] matrixValue, float[] mean, float[] normal);
 
