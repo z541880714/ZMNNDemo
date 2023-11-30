@@ -18,16 +18,15 @@
 #define JNI_PREFIX(arg) Java_com_lionel_zc_mnn_TextProcess_##arg
 
 
-
 //loadModel  String modelPath, String vocabPath
-JNIEXPORT jint JNICALL
+extern "C" JNIEXPORT jint JNICALL
 JNI_PREFIX(loadVocabFile)(JNIEnv *env, jclass thiz, jstring vocabPath) {
     //加载 vocab
     std::string s_vocabPath = JavaStringToString(env, vocabPath);
     return 0;
 }
 
-JNIEXPORT jint JNICALL
+extern "C" JNIEXPORT jint JNICALL
 JNI_PREFIX(nativeUpdateTensor)(JNIEnv *env, jclass clazz,
                                jlong tensorPtr, jintArray data) {
     auto tensor = (MNN::Tensor *) tensorPtr;
@@ -60,7 +59,7 @@ JNI_PREFIX(nativeUpdateTensor)(JNIEnv *env, jclass clazz,
     return 0;
 }
 
-JNIEXPORT jint JNICALL
+extern "C" JNIEXPORT jint JNICALL
 JNI_PREFIX(resetTensor)(JNIEnv *env, jclass clazz, jlong tensorPtr) {
     auto tensor = (MNN::Tensor *) tensorPtr;
 //    LOGI("tensor data size:%d,  width:%d, height:%d, batch:%d,  buffer type:%d",
@@ -72,6 +71,5 @@ JNI_PREFIX(resetTensor)(JNIEnv *env, jclass clazz, jlong tensorPtr) {
     return 0;
 }
 
-}
 
 
